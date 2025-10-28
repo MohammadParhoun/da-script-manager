@@ -81,7 +81,7 @@ script_runner() {
 }
 
 run_all_scripts() {
-    script_order=("directadmin-config.sh" "da-php.sh" "sourceGuardian-auto-installer.sh" "da-ssh.sh" "csf-installer.sh")
+    script_order=("csf-installer.sh" "directadmin-config.sh" "da-php.sh" "sourceGuardian-auto-installer.sh" "da-ssh.sh")
     for script in ${script_order[@]}; do
         echo "Running $script..."
         if ! script_runner $script; then
