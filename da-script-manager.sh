@@ -95,11 +95,32 @@ run_all_scripts() {
 
 }
 
+os=$(hostnamectl | grep "Operating System" | awk '{print $3 " " $4}')
+
+if ! systemctl list-unit-files | grep -q "^directadmin"; then
+    status="${RED}Not installed${RESET}"
+elif systemctl is-active --quiet directadmin; then
+    status="${BRIGHT_WHITE}Running${RESET}"
+else
+    status="${RED}Stopped${RESET}"
+fi
+
 
 while true; do
     echo
+    echo
+    echo
+    echo
+    echo
+    date=$(date "+%F %T")
+    echo -e "  System Time: $date"
+    echo
+    #echo -e "${GREEN2}  OS: ${BRIGHT_WHITE}$os\t${GREEN2}DirectAdmin Status: $status${RESET}\t${GREEN2}System Time: ${BRIGHT_WHITE}$date${RESET}"
+    echo -e "${GREEN2}  OS: ${BRIGHT_WHITE}$os\t${GREEN2}DirectAdmin Status: $status${RESET}"
+    echo
     echo -e "${GREEN2}  Directadmin Script Manager${RESET}"
-    echo -e "${GREEN2}----------------------------------------------${RESET}"
+    #echo -e "${GREEN2}----------------------------------------------${RESET}"
+    echo -e "${GREEN2}———————————————————————————————————————————————————————————${RESET}"
     echo -e "${GREEN2}  1.${BRIGHT_WHITE} DirectAdmin Config Script${RESET}"
     echo -e "${GREEN2}  2.${BRIGHT_WHITE} DirectAdmin PHP Configuration Script${RESET}"
     echo -e "${GREEN2}  3.${BRIGHT_WHITE} SourceGuardian Installer Script${RESET}"
